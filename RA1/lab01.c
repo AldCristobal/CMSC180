@@ -87,6 +87,9 @@ void arrPrint(float** X, int arrSize){
 int main (int argc, char *argv[0]){
     //init val for randomizer
     srand(time(NULL));
+
+    float **X;
+    int arrSize = 0;
     
     // //get arrSize
     // int arrSize = 0;
@@ -101,21 +104,18 @@ int main (int argc, char *argv[0]){
     //     X[i] = malloc(arrSize * sizeof(float));
     //     // T[i] = malloc(arrSize * sizeof(int));
     // }
-
-    float **X;
-    int arrSize = 0;
-    X = arrInput(&arrSize);
     // printf("%i\n",arrSize);
 
     // arrPrint(X, arrSize);
     // arrPrint(T, arrSize);
 
-    // //populate here
+    //populate here
     // int maxVal = 0;
     // sscanf(argv[2], "%i", &maxVal);
     // arrPopulate(X, arrSize, maxVal);
+    X = arrInput(&arrSize);
 
-    // arrPrint(X, arrSize);
+    arrPrint(X, arrSize);
     // arrPrint(T, arrSize);
 
     //init and get starting time
@@ -127,11 +127,11 @@ int main (int argc, char *argv[0]){
     //do mmt
     mmt(X, arrSize);
 
-    // arrPrint(X, arrSize);
-    // arrPrint(T, arrSize);
-    
     //get end time
     clock_gettime(CLOCK_MONOTONIC, &time_after);
+
+    arrPrint(X, arrSize);
+    // arrPrint(T, arrSize);
 
     //compute the difference
     nanoseconds = (time_after.tv_sec - time_before.tv_sec) * 1e9 + (time_after.tv_nsec - time_before.tv_nsec);
