@@ -46,11 +46,12 @@ int main (int argc, char *argv[]){
 
     float ***subMats;
     int colsPerThread = matSize/threadCount;
+    int extraCols = matSize % threadCount;
     subMats = (float ***) malloc(threadCount * sizeof(float **));
     for (int i = 0; i < threadCount; i++){
         subMats[i] =(float **) malloc(matSize * sizeof(float *));
         for (int j = 0; j < matSize; j++){
-            subMats[i][j] = (float*) malloc(colsPerThread * sizeof(float));
+            subMats[i][j] = (float*) malloc((colsPerThread + (i < extraCols ? 1 : 0)) * sizeof(float));
         }
     }
     printf("Submatrix memory allocated with cpt %i\n", colsPerThread);
@@ -60,7 +61,7 @@ int main (int argc, char *argv[]){
 
     if (doPrint){
         printf("Submatrices: \n");
-        subMatPrint(subMats, matSize, colsPerThread, threadCount);
+        subMatPrint(subMats, matSize, colsPerThread, extraCols, threadCount);
     }
 
     //init and get starting time

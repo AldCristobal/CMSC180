@@ -55,11 +55,11 @@ void matDivide(float** X, int matSize, int threadCount, int colsPerThread, float
     }
 }
 
-void subMatPrint(float*** subMats, int matSize, int colsPerThread, int threadCount){
+void subMatPrint(float*** subMats, int matSize, int colsPerThread,  int extraCols, int threadCount){
     for (int t = 0; t < threadCount; t++){
         printf("Submatrix %i:\n", t+1);
         for (int i = 0; i < matSize; i++) {       
-            for (int j = 0; j < colsPerThread; j++) {   
+            for (int j = 0; j < colsPerThread + (t < extraCols ? 1 : 0); j++) {   
                 printf("%f ", subMats[t][i][j]);
             }
             printf("\n"); 
