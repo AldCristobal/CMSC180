@@ -14,7 +14,7 @@ int main (int argc, char *argv[]){
     //get arrSize
     int arrSize = 0;
     sscanf(argv[1], "%i", &arrSize);
-    printf("The size is %i\n",arrSize);
+    // printf("The size is %i\n",arrSize);
     
     //build X and T matrices with arrSize * arrSize size
     float **X;
@@ -29,6 +29,7 @@ int main (int argc, char *argv[]){
     sscanf(argv[2], "%i", &maxVal);
     arrPopulate(X, arrSize, maxVal);
 
+    printf("Initial Matrix: \n");
     arrPrint(X, arrSize);
 
     //init and get starting time
@@ -40,6 +41,7 @@ int main (int argc, char *argv[]){
 
     clock_gettime(CLOCK_MONOTONIC, &time_after);
 
+    printf("Resulting Matrix: \n");
     arrPrint(X, arrSize);
 
     nanoseconds = (time_after.tv_sec - time_before.tv_sec) * 1000000000LL + (time_after.tv_nsec - time_before.tv_nsec);
