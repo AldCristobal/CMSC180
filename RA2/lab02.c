@@ -52,7 +52,6 @@ int main (int argc, char *argv[]){
         }
     }
     
-    printf("MS %i, TC %i \n", matSize, threadCount);
     matDivide(X, matSize, threadCount, subMats);
 
     if (doPrint){
