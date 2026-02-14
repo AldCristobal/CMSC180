@@ -21,13 +21,14 @@ int main (int argc, char *argv[]){
     for (int i = 0; i < arrSize; i++){
         X[i] = malloc(arrSize * sizeof(float));
     }
-    printf("%i\n",arrSize);
-
+    
     arrPrint(X, arrSize);
 
     int maxVal = 0;
     sscanf(argv[2], "%i", &maxVal);
     arrPopulate(X, arrSize, maxVal);
+
+    arrPrint(X, arrSize);
 
     mmt(X, arrSize);
 
