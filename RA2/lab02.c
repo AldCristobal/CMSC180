@@ -22,8 +22,8 @@ int main (int argc, char *argv[]){
     for (int i = 0; i < arrSize; i++){
         X[i] = malloc(arrSize * sizeof(float));
     }
-    
-    arrPrint(X, arrSize);
+
+    // arrPrint(X, arrSize);
 
     int maxVal = 0;
     sscanf(argv[2], "%i", &maxVal);
@@ -31,8 +31,24 @@ int main (int argc, char *argv[]){
 
     arrPrint(X, arrSize);
 
+    //init and get starting time
+    struct timespec time_before, time_after;
+    long long nanoseconds;
+    clock_gettime(CLOCK_MONOTONIC, &time_before);
+
     mmt(X, arrSize);
 
+    clock_gettime(CLOCK_MONOTONIC, &time_after);
+
     arrPrint(X, arrSize);
+
+    nanoseconds = (time_after.tv_sec - time_before.tv_sec) * 1000000000LL + (time_after.tv_nsec - time_before.tv_nsec);
+    printf("Time taken: %lld nanoseconds\n", nanoseconds);
+
+    for (int i = 0; i < arrSize; i++){
+        free(X[i]);
+    }
+    free(X);
+
     return 0;
 }
