@@ -40,9 +40,13 @@ int main (int argc, char *argv[]){
     sscanf(argv[4], "%i", &threadCount);
     printf("Thread count: %i\n", threadCount);
 
+    float minXj[matSize], maxXj[matSize];
+    getMinMax(X, matSize, minXj, maxXj);
+
     //init and get starting time
     struct timespec time_before, time_after;
     long long nanoseconds;
+
     clock_gettime(CLOCK_MONOTONIC, &time_before);
 
     mmt(X, matSize);
