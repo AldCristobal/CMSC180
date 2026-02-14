@@ -28,8 +28,13 @@ int main (int argc, char *argv[]){
     sscanf(argv[2], "%i", &maxVal);
     matPopulate(X, matSize, maxVal);
 
-    printf("Initial Matrix: \n");
-    matPrint(X, matSize);
+    int doPrint = 0;
+    sscanf(argv[3], "%i", &doPrint);
+
+    if (doPrint){
+        printf("Initial Matrix: \n");
+        matPrint(X, matSize);
+    }
 
     //init and get starting time
     struct timespec time_before, time_after;
@@ -40,9 +45,11 @@ int main (int argc, char *argv[]){
 
     clock_gettime(CLOCK_MONOTONIC, &time_after);
 
-    printf("Resulting Matrix: \n");
-    matPrint(X, matSize);
-
+    if (doPrint){
+        printf("Resulting Matrix: \n");
+        matPrint(X, matSize);
+    }
+    
     nanoseconds = (time_after.tv_sec - time_before.tv_sec) * 1000000000LL + (time_after.tv_nsec - time_before.tv_nsec);
     printf("Time taken: %lld nanoseconds\n", nanoseconds);
 
