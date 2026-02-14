@@ -54,7 +54,7 @@ int main (int argc, char *argv[]){
             subMats[i][j] = (float*) malloc((colsPerThread + (i < extraCols ? 1 : 0)) * sizeof(float));
         }
     }
-    printf("Submatrix memory allocated with cpt %i with %i extra columns\n", colsPerThread, extraCols);
+    printf("Column/s per submatrix: %i, distribute %i extra columns\n", colsPerThread, extraCols);
     
     matDivide(X, matSize, threadCount, colsPerThread, extraCols, subMats);
     // printf("Matrix divided into submatrices\n");
