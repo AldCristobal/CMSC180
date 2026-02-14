@@ -46,6 +46,11 @@ int main (int argc, char *argv[]){
     float ***subMats;
     matDivide(X, matSize, threadCount, subMats);
 
+    if (doPrint){
+        printf("Submatrices: \n");
+        subMatPrint(subMats, matSize, threadCount);
+    }
+
     //init and get starting time
     struct timespec time_before, time_after;
     long long nanoseconds;
