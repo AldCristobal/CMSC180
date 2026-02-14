@@ -65,6 +65,7 @@ void matDivide(float** X, int matSize, int threadCount, int colsPerThread,  int 
             }
         }
         excessHolder = extraCols;
+        t = 0;
     }
 }
 
