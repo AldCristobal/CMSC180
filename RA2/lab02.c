@@ -49,7 +49,7 @@ int main (int argc, char *argv[]){
 
     clock_gettime(CLOCK_MONOTONIC, &time_before);
 
-    mmt(X, matSize);
+    mmt(X, matSize, minXj, maxXj);
 
     clock_gettime(CLOCK_MONOTONIC, &time_after);
 
