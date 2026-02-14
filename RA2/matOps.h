@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void arrPopulate(float** X, int arrSize, int maxVal){
-    for (int i = 0; i < arrSize; i++) {       
-        for (int j = 0; j < arrSize; j++) {  
+void matPopulate(float** X, int matSize, int maxVal){
+    for (int i = 0; i <matSize; i++) {       
+        for (int j = 0; j < matSize; j++) {  
             if (maxVal > 0){
                 X[i][j] = rand() % maxVal;
             }else{
@@ -14,9 +14,9 @@ void arrPopulate(float** X, int arrSize, int maxVal){
     return;
 }
 
-void arrPrint(float** X, int arrSize){
-    for (int i = 0; i < arrSize; i++) {       
-        for (int j = 0; j < arrSize; j++) {   
+void matPrint(float** X, int matSize){
+    for (int i = 0; i < matSize; i++) {       
+        for (int j = 0; j < matSize; j++) {   
             printf("%f ", X[i][j]);
         }
         printf("\n"); 
