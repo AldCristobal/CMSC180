@@ -53,11 +53,11 @@ int main (int argc, char *argv[]){
         }
     }
     
-    matDivide(X, matSize, threadCount, subMats);
+    matDivide(X, matSize, threadCount, colsPerThread, subMats);
 
     if (doPrint){
         printf("Submatrices: \n");
-        subMatPrint(subMats, matSize, threadCount);
+        subMatPrint(subMats, matSize, colsPerThread, threadCount);
     }
 
     //init and get starting time
