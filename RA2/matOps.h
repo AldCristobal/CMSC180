@@ -57,6 +57,7 @@ void matDivide(float** X, int matSize, int threadCount, int colsPerThread,  int 
         }
         if (extraCols > 0){
             j++;
+            extraCols--;
             for (int i = 0; i < matSize; i++) {
                 subMats[t][i][j] = X[i][j];
             }
