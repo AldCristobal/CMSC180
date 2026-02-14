@@ -52,6 +52,9 @@ void matDivide(float** X, int matSize, int threadCount, float ***subMats){
         subMats[i] = malloc(matSize * sizeof(float *));
         for (int j = 0; j < matSize; j++){
             subMats[i][j] = malloc(matSize * sizeof(float));
+            for (int k = 0; k < matSize; k++){
+                subMats[i][j][k] = X[j][k];
+            }
         }
     }
 }
