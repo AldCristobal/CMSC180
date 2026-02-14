@@ -5,9 +5,9 @@ void matPopulate(float** X, int matSize, int maxVal){
     for (int i = 0; i <matSize; i++) {       
         for (int j = 0; j < matSize; j++) {  
             if (maxVal > 0){
-                X[i][j] = rand() % maxVal;
+                X[i][j] = (rand() % maxVal) +1;
             }else{
-                X[i][j] = rand();
+                X[i][j] = rand() + 1;
             }
         }
     }
