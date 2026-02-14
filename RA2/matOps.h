@@ -63,6 +63,7 @@ void matDivide(float** X, int matSize, int threadCount, int colsPerThread,  int 
                 printf("Assigning subMats[%i][%i][%i] = X[%i][%i]\n", t, i, colsPerThread, i, j);
                 subMats[t][i][colsPerThread] = X[i][j];
             }
+            j++;
         }
     }
 
