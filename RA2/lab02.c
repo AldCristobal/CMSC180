@@ -81,7 +81,10 @@ int main (int argc, char *argv[]){
 
     clock_gettime(CLOCK_MONOTONIC, &time_before);
 
-    mmt(X, matSize, minXj, maxXj);
+    // mmt(X, matSize, minXj, maxXj);
+    for (int t = 0; t < threadCount; t++){
+        mmt(subMats[t], matSize, colsPerThread + (t < extraCols ? 1 : 0), minXjSub[t], maxXjSub[t]);
+    }
 
     clock_gettime(CLOCK_MONOTONIC, &time_after);
 
