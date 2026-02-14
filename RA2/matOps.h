@@ -48,11 +48,21 @@ void getMinMax(float** X, int matSize, float* minXj, float* maxXj){
 
 void matDivide(float** X, int matSize, int threadCount, int colsPerThread,  int extraCols, float ***subMats){
     int t = 0;
-    for (int j = 0; j < colsPerThread; j++) {       
-        for (int i = 0; i < matSize; i++) {
-            subMats[t][i][j] = X[i][j];
+    int j = 0;
+    for (t; t < threadCount; t++){
+        for (j; j%colsPerThread < colsPerThread; j++) {       
+            for (int i = 0; i < matSize; i++) {
+                subMats[t][i][j] = X[i][j];
+            }
+        }
+        if (extraCols > 0){
+            j++;
+            for (int i = 0; i < matSize; i++) {
+                subMats[t][i][j] = X[i][j];
+            }
         }
     }
+
 }
 
 void subMatPrint(float*** subMats, int matSize, int colsPerThread,  int extraCols, int threadCount){
