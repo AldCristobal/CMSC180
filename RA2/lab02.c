@@ -44,6 +44,14 @@ int main (int argc, char *argv[]){
     getMinMax(X, matSize, minXj, maxXj);
 
     float ***subMats;
+    subMats = (float ***) malloc(threadCount * sizeof(float **));
+    for (int i = 0; i < threadCount; i++){
+        subMats[i] =(float **) malloc(matSize * sizeof(float *));
+        for (int j = 0; j < matSize; j++){
+            subMats[i][j] = (float*) malloc(matSize * sizeof(float));
+        }
+    }
+    
     printf("MS %i, TC %i \n", matSize, threadCount);
     matDivide(X, matSize, threadCount, subMats);
 
