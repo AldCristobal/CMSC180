@@ -43,6 +43,9 @@ int main (int argc, char *argv[]){
     float minXj[matSize], maxXj[matSize];
     getMinMax(X, matSize, minXj, maxXj);
 
+    float ***subMats;
+    matDivide(X, matSize, threadCount, subMats);
+
     //init and get starting time
     struct timespec time_before, time_after;
     long long nanoseconds;
