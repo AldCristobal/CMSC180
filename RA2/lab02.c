@@ -82,6 +82,14 @@ int main (int argc, char *argv[]){
     nanoseconds = (time_after.tv_sec - time_before.tv_sec) * 1000000000LL + (time_after.tv_nsec - time_before.tv_nsec);
     printf("Time taken: %lld nanoseconds\n", nanoseconds);
 
+    for (int t = 0; t < threadCount; t++){
+        for (int i = 0; i < matSize; i++){
+            free(subMats[t][i]);
+        }
+        free(subMats[t]);
+    }
+    free(subMats);
+    
     for (int i = 0; i < matSize; i++){
         free(X[i]);
     }
