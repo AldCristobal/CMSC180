@@ -56,12 +56,23 @@ int main (int argc, char *argv[]){
     }
     printf("Column/s per submatrix: %i, distribute %i extra columns\n", colsPerThread, extraCols);
     
-    matDivide(X, matSize, threadCount, colsPerThread, extraCols, subMats);
+    float **minXjSub;
+    minXjSub = (float **) malloc(threadCount * sizeof(float *));
+    for (int i = 0; i < threadCount; i++){
+        minXjSub[i] =(float *) malloc((colsPerThread + (i < extraCols ? 1 : 0)) * sizeof(float));
+    }
+    float **maxXjSub;
+    maxXjSub = (float **) malloc(threadCount * sizeof(float *));
+    for (int i = 0; i < threadCount; i++){
+        maxXjSub[i] =(float *) malloc((colsPerThread + (i < extraCols ? 1 : 0)) * sizeof(float));
+    }
+
+    matDivide(X, minXj, maxXj, matSize, threadCount, colsPerThread, extraCols, subMats, minXjSub, maxXjSub);
     // printf("Matrix divided into submatrices\n");
 
     if (doPrint){
         printf("Submatrices: \n");
-        subMatPrint(subMats, matSize, colsPerThread, extraCols, threadCount);
+        subMatPrint(subMats, matSize, colsPerThread, extraCols, threadCount, minXjSub, maxXjSub);
     }
 
     //init and get starting time
@@ -89,7 +100,7 @@ int main (int argc, char *argv[]){
         free(subMats[t]);
     }
     free(subMats);
-    
+
     for (int i = 0; i < matSize; i++){
         free(X[i]);
     }

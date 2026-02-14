@@ -46,7 +46,7 @@ void getMinMax(float** X, int matSize, float* minXj, float* maxXj){
     return;
 }
 
-void matDivide(float** X, int matSize, int threadCount, int colsPerThread,  int extraCols, float ***subMats){
+void matDivide(float** X, float* minXj, float* maxXj, int matSize, int threadCount, int colsPerThread,  int extraCols, float ***subMats, float **minXjSub, float **maxXjSub){
     int t = 0;
     int j = 0;
     for (t; t < threadCount; t++){
@@ -54,6 +54,8 @@ void matDivide(float** X, int matSize, int threadCount, int colsPerThread,  int 
             for (int i = 0; i < matSize; i++) {
                 // printf("Assigning subMats[%i][%i][%i] = X[%i][%i]\n", t, i, k, i, j);
                 subMats[t][i][k] = X[i][j];
+                minXjSub[t][k] = minXj[j];
+                maxXjSub[t][k] = maxXj[j];
             }
             j++;
         }
@@ -62,6 +64,8 @@ void matDivide(float** X, int matSize, int threadCount, int colsPerThread,  int 
             for (int i = 0; i < matSize; i++) {
                 // printf("Assigning subMats[%i][%i][%i] = X[%i][%i]\n", t, i, colsPerThread, i, j);
                 subMats[t][i][colsPerThread] = X[i][j];
+                minXjSub[t][colsPerThread] = minXj[j];
+                maxXjSub[t][colsPerThread] = maxXj[j];
             }
             j++;
         }
@@ -69,7 +73,7 @@ void matDivide(float** X, int matSize, int threadCount, int colsPerThread,  int 
 
 }
 
-void subMatPrint(float*** subMats, int matSize, int colsPerThread,  int extraCols, int threadCount){
+void subMatPrint(float*** subMats, int matSize, int colsPerThread,  int extraCols, int threadCount, float **minXjSub, float **maxXjSub){
     for (int t = 0; t < threadCount; t++){
         printf("Submatrix %i:\n", t+1);
         for (int i = 0; i < matSize; i++) {       
@@ -77,6 +81,10 @@ void subMatPrint(float*** subMats, int matSize, int colsPerThread,  int extraCol
                 printf("%f ", subMats[t][i][j]);
             }
             printf("\n"); 
+        }
+        printf("Min and Max for submatrix %i:\n", t+1);
+        for (int j = 0; j < colsPerThread + (t < extraCols ? 1 : 0); j++) {
+            printf("Column %i: min = %f, max = %f\n", j, minXjSub[t][j], maxXjSub[t][j]);
         }
     }
 
