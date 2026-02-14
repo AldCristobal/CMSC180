@@ -42,7 +42,7 @@ int main (int argc, char *argv[]){
 
     float minXj[matSize], maxXj[matSize];
     getMinMax(X, matSize, minXj, maxXj);
-    printf("Min and Max\n");
+    // printf("Min and Max\n");
 
     float ***subMats;
     int colsPerThread = matSize/threadCount;
@@ -54,10 +54,10 @@ int main (int argc, char *argv[]){
             subMats[i][j] = (float*) malloc((colsPerThread + (i < extraCols ? 1 : 0)) * sizeof(float));
         }
     }
-    printf("Submatrix memory allocated with cpt %i\n", colsPerThread);
+    printf("Submatrix memory allocated with cpt %i with %i extra columns\n", colsPerThread, extraCols);
     
     matDivide(X, matSize, threadCount, colsPerThread, extraCols, subMats);
-    printf("Matrix divided into submatrices\n");
+    // printf("Matrix divided into submatrices\n");
 
     if (doPrint){
         printf("Submatrices: \n");
