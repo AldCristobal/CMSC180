@@ -44,16 +44,16 @@ int main (int argc, char *argv[]){
     getMinMax(X, matSize, minXj, maxXj);
     // printf("Min and Max\n");
 
-    float ***subMats;
-    int colsPerThread = matSize/threadCount;
-    int extraCols = matSize % threadCount;
-    subMats = (float ***) malloc(threadCount * sizeof(float **));
-    for (int i = 0; i < threadCount; i++){
-        subMats[i] =(float **) malloc(matSize * sizeof(float *));
-        for (int j = 0; j < matSize; j++){
-            subMats[i][j] = (float*) malloc((colsPerThread + (i < extraCols ? 1 : 0)) * sizeof(float));
-        }
-    }
+    // float ***subMats;
+    // int colsPerThread = matSize/threadCount;
+    // int extraCols = matSize % threadCount;
+    // subMats = (float ***) malloc(threadCount * sizeof(float **));
+    // for (int i = 0; i < threadCount; i++){
+    //     subMats[i] =(float **) malloc(matSize * sizeof(float *));
+    //     for (int j = 0; j < matSize; j++){
+    //         subMats[i][j] = (float*) malloc((colsPerThread + (i < extraCols ? 1 : 0)) * sizeof(float));
+    //     }
+    // }
     printf("Column/s per submatrix: %i, distribute %i extra columns\n", colsPerThread, extraCols);
     
     float **minXjSub;
