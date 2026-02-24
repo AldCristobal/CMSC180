@@ -9,17 +9,24 @@ struct{
     float *maxXj;
 } typedef mmtArgs;
 
-void* mmt(mmtArgs *args){
+void* mmt(void *arg) {
+    mmtArgs *args = (mmtArgs*) arg;
+
     float **X = args->X;
     int matSize = args->matSize;
-    int colsPerThread = args->colsPerThread;
+    int startCol = args->startCol;
+    int endCol = args->endCol;
     float *minXj = args->minXj;
     float *maxXj = args->maxXj;
 
-    for (int i = 0; i < matSize; i++) {       
-        for (int j = 0; j < colsPerThread; j++) {             
-            X[i][j] = (X[i][j] - minXj[j])/(maxXj[j]-minXj[j]);
-            // printf("%f\n",X[i][j]);
+    for (int j = startCol; j < endCol; j++) {
+        float minVal = minXj[j];
+        float range = maxXj[j] - minVal;
+
+        for (int i = 0; i < matSize; i++) {
+            X[i][j] = (X[i][j] - minVal) / range;
         }
     }
+
+    return NULL;
 }

@@ -82,30 +82,37 @@ int main (int argc, char *argv[]){
     struct timespec time_before, time_after;
     long long nanoseconds;
 
-    clock_gettime(CLOCK_MONOTONIC, &time_before);
+    pthread_t *threads = malloc(threadCount * sizeof(pthread_t));
+mmtArgs *args = malloc(threadCount * sizeof(mmtArgs));
 
-    // mmt(X, matSize, minXj, maxXj);
-    for (int t = 0; t < threadCount; t++){
-        // mmt(subMats[t], matSize, colsPerThread + (t < extraCols ? 1 : 0), minXjSub[t], maxXjSub[t]);
-        mmtArgs *args = malloc(sizeof(mmtArgs));
-        args->X = subMats[t];
-        args->matSize = matSize;
-        args->colsPerThread = colsPerThread + (t < extraCols ? 1 : 0);
-        args->minXj = minXjSub[t];
-        args->maxXj = maxXjSub[t];
-        
-        pthread_t thread;
-        pthread_create(&thread, NULL, mmt, args);
-        mmtThreads[t] = thread;
-    }
+int colsPerThread = matSize / threadCount;
+int extraCols = matSize % threadCount;
 
-    for (int t = 0; t < threadCount; t++){
-        pthread_join(mmtThreads[t], NULL);
-    }
+int currentCol = 0;
 
-    subMatToMat(subMats, X, matSize, colsPerThread, extraCols, threadCount);
+clock_gettime(CLOCK_MONOTONIC, &time_before);
 
-    clock_gettime(CLOCK_MONOTONIC, &time_after);
+for (int t = 0; t < threadCount; t++) {
+
+    int cols = colsPerThread + (t < extraCols ? 1 : 0);
+
+    args[t].X = X;
+    args[t].matSize = matSize;
+    args[t].startCol = currentCol;
+    args[t].endCol = currentCol + cols;
+    args[t].minXj = minXj;
+    args[t].maxXj = maxXj;
+
+    pthread_create(&threads[t], NULL, mmt, &args[t]);
+
+    currentCol += cols;
+}
+
+for (int t = 0; t < threadCount; t++) {
+    pthread_join(threads[t], NULL);
+}
+
+clock_gettime(CLOCK_MONOTONIC, &time_after);
 
     if (doPrint){
         printf("Submatrices after MMT: \n");
