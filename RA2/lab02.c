@@ -40,8 +40,6 @@ int main (int argc, char *argv[]){
     sscanf(argv[4], "%i", &threadCount);
     printf("Thread count: %i\n", threadCount);
 
-    float minXj[matSize], maxXj[matSize];
-    getMinMax(X, matSize, minXj, maxXj);
     // printf("Min and Max\n");
 
     // float ***subMats;
@@ -89,6 +87,9 @@ int main (int argc, char *argv[]){
     int currentCol = 0; 
 
     clock_gettime(CLOCK_MONOTONIC, &time_before);
+    
+    float minXj[matSize], maxXj[matSize];
+    getMinMax(X, matSize, minXj, maxXj);
 
     for (int t = 0; t < threadCount; t++) {
 
@@ -100,6 +101,7 @@ int main (int argc, char *argv[]){
         args[t].endCol = currentCol + cols;
         args[t].minXj = minXj;
         args[t].maxXj = maxXj;
+        args[t].doPrint = doPrint;
 
         pthread_create(&threads[t], NULL, mmt, &args[t]);
 
