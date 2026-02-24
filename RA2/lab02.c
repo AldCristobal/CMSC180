@@ -125,5 +125,7 @@ int main (int argc, char *argv[]){
     }
     free(X);
 
+    free(mmtThreads);
+
     return 0;
 }
