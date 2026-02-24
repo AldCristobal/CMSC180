@@ -91,29 +91,29 @@ int main (int argc, char *argv[0]){
     float **X;
     int arrSize = 0;
     
-    // //get arrSize
-    // int arrSize = 0;
-    // sscanf(argv[1], "%i", &arrSize);
-    // // printf("The size is %i\n",arrSize);
+    //get arrSize
+    int arrSize = 0;
+    sscanf(argv[1], "%i", &arrSize);
+    // printf("The size is %i\n",arrSize);
     
     // //build X and T matrices with arrSize * arrSize size
-    // float **X, **T;
-    // X = malloc(arrSize * sizeof(float *));
-    // // T = malloc(arrSize * sizeof(int *));     
-    // for (int i = 0; i < arrSize; i++){
-    //     X[i] = malloc(arrSize * sizeof(float));
-    //     // T[i] = malloc(arrSize * sizeof(int));
-    // }
-    // printf("%i\n",arrSize);
+    float **X, **T;
+    X = malloc(arrSize * sizeof(float *));
+    // T = malloc(arrSize * sizeof(int *));     
+    for (int i = 0; i < arrSize; i++){
+        X[i] = malloc(arrSize * sizeof(float));
+        // T[i] = malloc(arrSize * sizeof(int));
+    }
+    printf("%i\n",arrSize);
 
-    // arrPrint(X, arrSize);
+    arrPrint(X, arrSize);
     // arrPrint(T, arrSize);
 
-    //populate here
-    // int maxVal = 0;
-    // sscanf(argv[2], "%i", &maxVal);
-    // arrPopulate(X, arrSize, maxVal);
-    X = arrInput(&arrSize);
+    // populate here
+    int maxVal = 0;
+    sscanf(argv[2], "%i", &maxVal);
+    arrPopulate(X, arrSize, maxVal);
+    // X = arrInput(&arrSize);
 
     arrPrint(X, arrSize);
     // arrPrint(T, arrSize);
