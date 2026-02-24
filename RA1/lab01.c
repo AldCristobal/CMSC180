@@ -92,12 +92,10 @@ int main (int argc, char *argv[0]){
     int arrSize = 0;
     
     //get arrSize
-    int arrSize = 0;
     sscanf(argv[1], "%i", &arrSize);
     // printf("The size is %i\n",arrSize);
     
     // //build X and T matrices with arrSize * arrSize size
-    float **X, **T;
     X = malloc(arrSize * sizeof(float *));
     // T = malloc(arrSize * sizeof(int *));     
     for (int i = 0; i < arrSize; i++){
