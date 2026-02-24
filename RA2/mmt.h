@@ -18,12 +18,31 @@ void* mmt(void *arg) {
     int matSize = args->matSize;
     int startCol = args->startCol;
     int endCol = args->endCol;
-    float *minXj = args->minXj;
-    float *maxXj = args->maxXj;
+    // float *minXj = args->minXj;
+    // float *maxXj = args->maxXj;
+
+    float *minXj = malloc((endCol-startCol) * sizeof(float));
+    float *maxXj = malloc((endCol-startCol) * sizeof(float));
+
+    for (int j = 0; j < endCol-startCol; j++) {
+        minXj[j] = X[0][startCol + j];
+        maxXj[j] = X[0][startCol + j];
+    }
+
+    for (int i = 0; i < matSize; i++) {       
+        for (int j = 0; j < endCol-startCol; j++) {   
+            if(minXj[j] > X[i][startCol + j]){
+                minXj[j] = X[i][startCol + j];
+            }
+            if(maxXj[j] < X[i][startCol + j]){
+                maxXj[j] = X[i][startCol + j];
+            }
+        }
+    }
 
     for (int i = 0; i < matSize; i++) {
-        for (int j = startCol; j < endCol; j++) {
-            X[i][j] = (X[i][j] - minXj[j]) / (maxXj[j] - minXj[j]);
+        for (int j = 0; j < endCol-startCol; j++) {
+            X[i][startCol + j] = (X[i][startCol + j] - minXj[j]) / (maxXj[j] - minXj[j]);
         }
     }
 
@@ -36,6 +55,9 @@ void* mmt(void *arg) {
             printf("\n");
         }
     }
+
+    free(minXj);
+    free(maxXj);
 
     return NULL;
 }
