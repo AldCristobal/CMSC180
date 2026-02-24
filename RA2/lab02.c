@@ -103,17 +103,19 @@ int main (int argc, char *argv[]){
         pthread_join(mmtThreads[t], NULL);
     }
 
+    subMatToMat(subMats, X, matSize, colsPerThread, extraCols, threadCount);
+
+    clock_gettime(CLOCK_MONOTONIC, &time_after);
+
     if (doPrint){
         printf("Submatrices after MMT: \n");
         subMatPrint(subMats, matSize, colsPerThread, extraCols, threadCount, minXjSub, maxXjSub);
     }
 
-    clock_gettime(CLOCK_MONOTONIC, &time_after);
-
-    // if (doPrint){
-    //     printf("Resulting Matrix: \n");
-    //     matPrint(X, matSize);
-    // }
+    if (doPrint){
+        printf("Resulting Matrix: \n");
+        matPrint(X, matSize);
+    }
 
     nanoseconds = (time_after.tv_sec - time_before.tv_sec) * 1000000000LL + (time_after.tv_nsec - time_before.tv_nsec);
     printf("Time taken: %lld nanoseconds\n", nanoseconds);

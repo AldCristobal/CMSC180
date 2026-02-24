@@ -89,3 +89,16 @@ void subMatPrint(float*** subMats, int matSize, int colsPerThread,  int extraCol
     }
 
 }
+
+void subMatToMat(float*** subMats, float** X, int matSize, int colsPerThread,  int extraCols, int threadCount){
+    int t = 0;
+    int j = 0;
+    for (t; t < threadCount; t++){
+        for (int k = 0; k < colsPerThread + (t < extraCols ? 1 : 0); k++) {       
+            for (int i = 0; i < matSize; i++) {
+                X[i][j] = subMats[t][i][k];
+            }
+            j++;
+        }
+    }
+}
