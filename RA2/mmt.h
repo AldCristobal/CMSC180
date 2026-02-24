@@ -26,5 +26,14 @@ void* mmt(void *arg) {
         }
     }
 
+    //print submatrix after MMT
+    printf("Thread handling columns %i to %i finished MMT. Submatrix:\n", startCol, endCol-1);
+    for (int i = 0; i < matSize; i++) {
+        for (int j = startCol; j < endCol; j++) {
+            printf("%f ", X[i][j]);
+        }
+        printf("\n");
+    }
+
     return NULL;
 }
