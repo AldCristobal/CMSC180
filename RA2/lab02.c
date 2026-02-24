@@ -87,8 +87,9 @@ int main (int argc, char *argv[]){
     // mmt(X, matSize, minXj, maxXj);
     for (int t = 0; t < threadCount; t++){
         // mmt(subMats[t], matSize, colsPerThread + (t < extraCols ? 1 : 0), minXjSub[t], maxXjSub[t]);
+        void *mmtArgs[5] = {subMats[t], &matSize, &colsPerThread, minXjSub[t], maxXjSub[t]};
         pthread_t thread;
-        pthread_create(&thread, NULL, mmt_thread, (void*) &(subMats[t]));
+        pthread_create(&thread, NULL, mmt, (void*) mmtArgs);
         mmtThreads[t] = thread;
     }
 
