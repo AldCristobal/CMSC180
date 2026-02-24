@@ -87,9 +87,6 @@ int main (int argc, char *argv[]){
     int currentCol = 0; 
 
     clock_gettime(CLOCK_MONOTONIC, &time_before);
-    
-    float minXj[matSize], maxXj[matSize];
-    getMinMax(X, matSize, minXj, maxXj);
 
     for (int t = 0; t < threadCount; t++) {
 
@@ -99,8 +96,6 @@ int main (int argc, char *argv[]){
         args[t].matSize = matSize;
         args[t].startCol = currentCol;
         args[t].endCol = currentCol + cols;
-        args[t].minXj = minXj;
-        args[t].maxXj = maxXj;
         args[t].doPrint = doPrint;
 
         pthread_create(&threads[t], NULL, mmt, &args[t]);
