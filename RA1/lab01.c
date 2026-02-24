@@ -104,7 +104,7 @@ int main (int argc, char *argv[0]){
     }
     printf("%i\n",arrSize);
 
-    arrPrint(X, arrSize);
+    // arrPrint(X, arrSize);
     // arrPrint(T, arrSize);
 
     // populate here
@@ -113,7 +113,7 @@ int main (int argc, char *argv[0]){
     arrPopulate(X, arrSize, maxVal);
     // X = arrInput(&arrSize);
 
-    arrPrint(X, arrSize);
+    // arrPrint(X, arrSize);
     // arrPrint(T, arrSize);
 
     //init and get starting time
@@ -128,7 +128,7 @@ int main (int argc, char *argv[0]){
     //get end time
     clock_gettime(CLOCK_MONOTONIC, &time_after);
 
-    arrPrint(X, arrSize);
+    // arrPrint(X, arrSize);
     // arrPrint(T, arrSize);
 
     //compute the difference
