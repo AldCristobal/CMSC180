@@ -56,27 +56,24 @@ int main (int argc, char *argv[]){
     // }
     // printf("Column/s per submatrix: %i, distribute %i extra columns\n", colsPerThread, extraCols);
     
-    float **minXjSub;
-    minXjSub = (float **) malloc(threadCount * sizeof(float *));
-    for (int i = 0; i < threadCount; i++){
-        minXjSub[i] =(float *) malloc((colsPerThread + (i < extraCols ? 1 : 0)) * sizeof(float));
-    }
-    float **maxXjSub;
-    maxXjSub = (float **) malloc(threadCount * sizeof(float *));
-    for (int i = 0; i < threadCount; i++){
-        maxXjSub[i] =(float *) malloc((colsPerThread + (i < extraCols ? 1 : 0)) * sizeof(float));
-    }
+    // float **minXjSub;
+    // minXjSub = (float **) malloc(threadCount * sizeof(float *));
+    // for (int i = 0; i < threadCount; i++){
+    //     minXjSub[i] =(float *) malloc((colsPerThread + (i < extraCols ? 1 : 0)) * sizeof(float));
+    // }
+    // float **maxXjSub;
+    // maxXjSub = (float **) malloc(threadCount * sizeof(float *));
+    // for (int i = 0; i < threadCount; i++){
+    //     maxXjSub[i] =(float *) malloc((colsPerThread + (i < extraCols ? 1 : 0)) * sizeof(float));
+    // }
 
-    matDivide(X, minXj, maxXj, matSize, threadCount, colsPerThread, extraCols, subMats, minXjSub, maxXjSub);
+    // matDivide(X, minXj, maxXj, matSize, threadCount, colsPerThread, extraCols, subMats, minXjSub, maxXjSub);
     // printf("Matrix divided into submatrices\n");
 
-    if (doPrint){
-        printf("Submatrices: \n");
-        subMatPrint(subMats, matSize, colsPerThread, extraCols, threadCount, minXjSub, maxXjSub);
-    }
-
-    pthread_t *mmtThreads;
-    mmtThreads = (pthread_t*) malloc(threadCount * sizeof(pthread_t));
+    // if (doPrint){
+    //     printf("Submatrices: \n");
+    //     subMatPrint(subMats, matSize, colsPerThread, extraCols, threadCount, minXjSub, maxXjSub);
+    // }
 
     //init and get starting time
     struct timespec time_before, time_after;
@@ -115,10 +112,10 @@ int main (int argc, char *argv[]){
 
     clock_gettime(CLOCK_MONOTONIC, &time_after);
 
-    if (doPrint){
-        printf("Submatrices after MMT: \n");
-        subMatPrint(subMats, matSize, colsPerThread, extraCols, threadCount, minXjSub, maxXjSub);
-    }
+    // if (doPrint){
+    //     printf("Submatrices after MMT: \n");
+    //     subMatPrint(subMats, matSize, colsPerThread, extraCols, threadCount, minXjSub, maxXjSub);
+    // }
 
     if (doPrint){
         printf("Resulting Matrix: \n");
