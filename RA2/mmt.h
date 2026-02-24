@@ -20,12 +20,9 @@ void* mmt(void *arg) {
     float *minXj = args->minXj;
     float *maxXj = args->maxXj;
 
-    for (int j = startCol; j < endCol; j++) {
-        float minVal = minXj[j];
-        float range = maxXj[j] - minVal;
-
-        for (int i = 0; i < matSize; i++) {
-            X[i][j] = (X[i][j] - minVal) / range;
+    for (int i = 0; i < matSize; i++) {
+        for (int j = startCol; j < endCol; j++) {
+            X[i][j] = (X[i][j] - minXj[j]) / (maxXj[j] - minXj[j]);
         }
     }
 
