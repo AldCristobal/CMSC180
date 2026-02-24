@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void mmt(void *args[]){
+void* mmt(void* args[]){
     float **X = (float **) args[0];
     int matSize = *(int *) args[1];
     int colsPerThread = *(int *) args[2];
