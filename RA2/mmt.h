@@ -1,13 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct{
+typedef struct {
     float **X;
     int matSize;
-    int colsPerThread;
+    int startCol;
+    int endCol;
     float *minXj;
     float *maxXj;
-} typedef mmtArgs;
+} mmtArgs;
 
 void* mmt(void *arg) {
     mmtArgs *args = (mmtArgs*) arg;
