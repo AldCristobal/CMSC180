@@ -54,7 +54,7 @@ int main (int argc, char *argv[]){
     //         subMats[i][j] = (float*) malloc((colsPerThread + (i < extraCols ? 1 : 0)) * sizeof(float));
     //     }
     // }
-    printf("Column/s per submatrix: %i, distribute %i extra columns\n", colsPerThread, extraCols);
+    // printf("Column/s per submatrix: %i, distribute %i extra columns\n", colsPerThread, extraCols);
     
     float **minXjSub;
     minXjSub = (float **) malloc(threadCount * sizeof(float *));
@@ -83,36 +83,37 @@ int main (int argc, char *argv[]){
     long long nanoseconds;
 
     pthread_t *threads = malloc(threadCount * sizeof(pthread_t));
-mmtArgs *args = malloc(threadCount * sizeof(mmtArgs));
+    mmtArgs *args = malloc(threadCount * sizeof(mmtArgs));
 
-int colsPerThread = matSize / threadCount;
-int extraCols = matSize % threadCount;
+    int colsPerThread = matSize / threadCount;
+    int extraCols = matSize % threadCount;
+    printf("Column/s per submatrix: %i, distribute %i extra columns\n", colsPerThread, extraCols);
 
-int currentCol = 0;
+    int currentCol = 0; 
 
-clock_gettime(CLOCK_MONOTONIC, &time_before);
+    clock_gettime(CLOCK_MONOTONIC, &time_before);
 
-for (int t = 0; t < threadCount; t++) {
+    for (int t = 0; t < threadCount; t++) {
 
-    int cols = colsPerThread + (t < extraCols ? 1 : 0);
+        int cols = colsPerThread + (t < extraCols ? 1 : 0);
 
-    args[t].X = X;
-    args[t].matSize = matSize;
-    args[t].startCol = currentCol;
-    args[t].endCol = currentCol + cols;
-    args[t].minXj = minXj;
-    args[t].maxXj = maxXj;
+        args[t].X = X;
+        args[t].matSize = matSize;
+        args[t].startCol = currentCol;
+        args[t].endCol = currentCol + cols;
+        args[t].minXj = minXj;
+        args[t].maxXj = maxXj;
 
-    pthread_create(&threads[t], NULL, mmt, &args[t]);
+        pthread_create(&threads[t], NULL, mmt, &args[t]);
 
-    currentCol += cols;
-}
+        currentCol += cols;
+    }
 
-for (int t = 0; t < threadCount; t++) {
-    pthread_join(threads[t], NULL);
-}
+    for (int t = 0; t < threadCount; t++) {
+        pthread_join(threads[t], NULL);
+    }
 
-clock_gettime(CLOCK_MONOTONIC, &time_after);
+    clock_gettime(CLOCK_MONOTONIC, &time_after);
 
     if (doPrint){
         printf("Submatrices after MMT: \n");
