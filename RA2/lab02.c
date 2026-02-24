@@ -75,6 +75,9 @@ int main (int argc, char *argv[]){
         subMatPrint(subMats, matSize, colsPerThread, extraCols, threadCount, minXjSub, maxXjSub);
     }
 
+    pthread_t *mmtThreads;
+    mmtThreads = (pthread_t*) malloc(threadCount * sizeof(pthread_t));
+
     //init and get starting time
     struct timespec time_before, time_after;
     long long nanoseconds;
@@ -83,7 +86,14 @@ int main (int argc, char *argv[]){
 
     // mmt(X, matSize, minXj, maxXj);
     for (int t = 0; t < threadCount; t++){
-        mmt(subMats[t], matSize, colsPerThread + (t < extraCols ? 1 : 0), minXjSub[t], maxXjSub[t]);
+        // mmt(subMats[t], matSize, colsPerThread + (t < extraCols ? 1 : 0), minXjSub[t], maxXjSub[t]);
+        pthread_t thread;
+        pthread_create(&thread, NULL, mmt_thread, (void*) &(subMats[t]));
+        mmtThreads[t] = thread;
+    }
+
+    for (int t = 0; t < threadCount; t++){
+        pthread_join(mmtThreads[t], NULL);
     }
 
     if (doPrint){
