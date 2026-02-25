@@ -18,13 +18,12 @@ void* mmt(void *arg) {
 
     float **X = args->X;
     int matSize = args->matSize;
+    float *minXj = args->minXj;
+    float *maxXj = args->maxXj;
     // int startCol = args->startCol;
     // int endCol = args->endCol;
     int startRow = args->startRow;
     int endRow = args->endRow;
-
-    float *minXj = args->minXj;
-    float *maxXj = args->maxXj;
 
     // float *minXj = malloc((endCol-startCol) * sizeof(float));
     // float *maxXj = malloc((endCol-startCol) * sizeof(float));
@@ -51,12 +50,6 @@ void* mmt(void *arg) {
     //     }
     // }
 
-    for (int i = 0; i < endRow-startRow; i++) {
-        for (int j = 0; j < matSize; j++) {
-            X[startRow + i][j] = (X[startRow + i][j] - minXj[j]) / (maxXj[j] - minXj[j]);
-        }
-    }
-
     // if (args->doPrint) {
     //     printf("Thread handling columns %i to %i finished MMT. Submatrix:\n", startCol, endCol-1);
     //     for (int i = 0; i < matSize; i++) {
@@ -67,6 +60,15 @@ void* mmt(void *arg) {
     //     }
     // }
 
+    // free(minXj);
+    // free(maxXj);
+
+    for (int i = 0; i < endRow-startRow; i++) {
+        for (int j = 0; j < matSize; j++) {
+            X[startRow + i][j] = (X[startRow + i][j] - minXj[j]) / (maxXj[j] - minXj[j]);
+        }
+    }
+
     if (args->doPrint) {
         printf("Thread handling rows %i to %i finished MMT. Submatrix:\n", startRow, endRow-1);
         for (int i = startRow; i < endRow; i++) {
@@ -76,9 +78,6 @@ void* mmt(void *arg) {
             printf("\n");
         }
     }
-
-    // free(minXj);
-    // free(maxXj);
 
     return NULL;
 }
