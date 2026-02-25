@@ -99,8 +99,8 @@ int main (int argc, char *argv[]){
         args[t].matSize = matSize;
         // args[t].startCol = currentCol;
         // args[t].endCol = currentCol + cols;
-        args[t].startRow = t * (matSize / threadCount) + (t < extraCols ? t : extraCols);
-        args[t].endRow = args[t].startRow + (matSize / threadCount) + (t < extraCols ? 1 : 0);
+        args[t].startRow = currentCol;
+        args[t].endRow = currentCol + cols;
 
         args[t].minXj = minXj;
         args[t].maxXj = maxXj;
@@ -142,6 +142,9 @@ int main (int argc, char *argv[]){
         free(X[i]);
     }
     free(X);
+
+    free(minXj);
+    free(maxXj);
 
     free(threads);
     free(args);

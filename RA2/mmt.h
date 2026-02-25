@@ -77,8 +77,8 @@ void* mmt(void *arg) {
         }
     }
 
-    free(minXj);
-    free(maxXj);
+    // free(minXj);
+    // free(maxXj);
 
     return NULL;
 }
