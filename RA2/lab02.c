@@ -93,20 +93,22 @@ int main (int argc, char *argv[]){
 
     for (int t = 0; t < threadCount; t++) {
 
-        int cols = colsPerThread + (t < extraCols ? 1 : 0);
+        // int cols = colsPerThread + (t < extraCols ? 1 : 0);
 
         args[t].X = X;
         args[t].matSize = matSize;
-        args[t].startCol = currentCol;
-        args[t].endCol = currentCol + cols;
-        
+        // args[t].startCol = currentCol;
+        // args[t].endCol = currentCol + cols;
+        args[t].startRow = t * (matSize / threadCount) + (t < extraCols ? t : extraCols);
+        args[t].endRow = args[t].startRow + (matSize / threadCount) + (t < extraCols ? 1 : 0);
+
         args[t].minXj = minXj;
         args[t].maxXj = maxXj;
         args[t].doPrint = doPrint;
 
         pthread_create(&threads[t], NULL, mmt, &args[t]);
 
-        currentCol += cols;
+        // currentCol += cols;
     }
 
     for (int t = 0; t < threadCount; t++) {
