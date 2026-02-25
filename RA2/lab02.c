@@ -143,9 +143,6 @@ int main (int argc, char *argv[]){
     }
     free(X);
 
-    free(minXj);
-    free(maxXj);
-
     free(threads);
     free(args);
 
