@@ -118,17 +118,17 @@ float **arrInput(char *filename, int *threadCount, int *matSize) {
 
     *threadCount = threads;
     *matSize = rows;
-    array = malloc(*rows * sizeof(float *));
+    array = malloc(rows * sizeof(float *));
 
-    for (int i = 0; i < *rows; i++){
-        array[i] = malloc(*rows * sizeof(float));
+    for (int i = 0; i < rows; i++){
+        array[i] = malloc(rows * sizeof(float));
     }
 
-    for (int i = 0; i < *rows; i++) {
+    for (int i = 0; i < rows; i++) {
         fgets(line, sizeof(line), file);
 
         char *token = strtok(line, ",\n");
-        for (int j = 0; j < *rows && token != NULL; j++) {
+        for (int j = 0; j < rows && token != NULL; j++) {
             array[i][j] = atof(token);
             token = strtok(NULL, ",\n");
         }
