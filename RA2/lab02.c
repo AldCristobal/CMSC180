@@ -93,7 +93,7 @@ int main (int argc, char *argv[]){
 
     for (int t = 0; t < threadCount; t++) {
 
-        // int cols = colsPerThread + (t < extraCols ? 1 : 0);
+        int cols = colsPerThread + (t < extraCols ? 1 : 0);
 
         args[t].X = X;
         args[t].matSize = matSize;
@@ -108,7 +108,7 @@ int main (int argc, char *argv[]){
 
         pthread_create(&threads[t], NULL, mmt, &args[t]);
 
-        // currentCol += cols;
+        currentCol += cols;
     }
 
     for (int t = 0; t < threadCount; t++) {
