@@ -102,3 +102,38 @@ void subMatToMat(float*** subMats, float** X, int matSize, int colsPerThread,  i
         }
     }
 }
+
+float **arrInput(char *filename, int *threadCount, int *matSize) {
+    FILE *file = fopen(filename, "r");
+    float **array = NULL;
+    char line[1024];
+    int rows = 0;
+    int threads = 0;
+
+    fgets(line, sizeof(line), file);
+    rows = atoi(line);
+
+    fgets(line, sizeof(line), file);
+    threads = atoi(line);
+
+    *threadCount = threads;
+    *matSize = rows;
+    array = malloc(*rows * sizeof(float *));
+
+    for (int i = 0; i < *rows; i++){
+        array[i] = malloc(*rows * sizeof(float));
+    }
+
+    for (int i = 0; i < *rows; i++) {
+        fgets(line, sizeof(line), file);
+
+        char *token = strtok(line, ",\n");
+        for (int j = 0; j < *rows && token != NULL; j++) {
+            array[i][j] = atof(token);
+            token = strtok(NULL, ",\n");
+        }
+    }
+
+    fclose(file);
+    return array;
+}

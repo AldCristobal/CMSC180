@@ -16,17 +16,24 @@ int main (int argc, char *argv[]){
     sscanf(argv[3], "%i", &matSize);
     // printf("The size is %i\n",matSize);
     
-    //build X and T matrices with matSize * matSize size
     float **X;
-    X = malloc(matSize * sizeof(float *));
-    for (int i = 0; i < matSize; i++){
-        X[i] = malloc(matSize * sizeof(float));
-    }
+    int threadCount = 0;
+    if (matSize > 0){
+        //build X and T matrices with matSize * matSize size
+        X = malloc(matSize * sizeof(float *));
+        for (int i = 0; i < matSize; i++){
+            X[i] = malloc(matSize * sizeof(float));
+        }
 
-    // matPrint(X, matSize);
-    int maxVal = 0;
-    sscanf(argv[2], "%i", &maxVal);
-    matPopulate(X, matSize, maxVal);
+        // matPrint(X, matSize);
+        int maxVal = 0;
+        sscanf(argv[2], "%i", &maxVal);
+        matPopulate(X, matSize, maxVal);
+        
+        sscanf(argv[4], "%i", &threadCount);
+    }else{
+        X = arrInput("./RA2/input.txt", &threadCount, &matSize);
+    }
 
     int doPrint = 0;
     sscanf(argv[1], "%i", &doPrint);
@@ -35,9 +42,6 @@ int main (int argc, char *argv[]){
         printf("Initial Matrix: \n");
         matPrint(X, matSize);
     }
-
-    int threadCount = 0;
-    sscanf(argv[4], "%i", &threadCount);
     printf("Thread count: %i\n", threadCount);
 
     // printf("Min and Max\n");
